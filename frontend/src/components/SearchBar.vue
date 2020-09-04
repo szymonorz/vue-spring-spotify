@@ -1,0 +1,72 @@
+<template>
+    <div id="searchBar">
+        <form v-on:submit="onSubmit">
+            <input type="text" placeholder="Wpisz artystę" id="search" v-model="artistName"/>
+            
+        </form>
+        <ArtistComponent
+            v-for="artist in result"
+            :key="artist"
+            :artist="artist"
+            v-on:get-info="getArtistInfo($event)"
+             />
+    </div>
+</template>
+<script>
+import axios from 'axios'
+import ArtistComponent from "./ArtistComponent"
+export default {
+    components:{
+        ArtistComponent
+    },
+    props: ["token"],
+    data(){
+        return{
+            artistName: '',
+            result: []
+        }
+    },
+    methods:{
+        onSubmit: function(e)
+        {
+            e.preventDefault();
+            console.log(this.token)
+            axios.request({
+                url: "/search/"+this.artistName,
+                method: 'get',
+                baseURL: "http://192.168.0.30:8081",
+                headers:{
+                    "Authorization": "Bearer "+this.token
+                }
+            })
+            .then(response => this.result = response.data["items"])
+            .catch(err => console.log(err))
+            console.log(this.result)
+            
+        },
+        getArtistInfo: function(id)
+        {
+            axios.get("http://192.168.0.30:8081/artist/"+id,  {
+                headers:{
+                "Authorization": "Bearer " + this.token
+                }
+            })
+            .then(resp => console.log(resp.data))
+            .catch(err => console.log(err))
+        }
+    }
+}
+</script>
+<style scoped>
+#search{
+    width: 70%;
+    padding: 25px;
+}
+
+#searchBar{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+</style>
