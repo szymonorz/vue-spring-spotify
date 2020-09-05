@@ -25,7 +25,7 @@ public class UserAuthentication {
     @JsonProperty("authorities")
     private List<Authority> authorities = null;
     @JsonProperty("details")
-    private Details_ details;
+    private Details details;
     @JsonProperty("authenticated")
     private Boolean authenticated;
     @JsonProperty("principal")
@@ -48,12 +48,12 @@ public class UserAuthentication {
     }
 
     @JsonProperty("details")
-    public Details_ getDetails() {
+    public Details getDetails() {
         return details;
     }
 
     @JsonProperty("details")
-    public void setDetails(Details_ details) {
+    public void setDetails(Details details) {
         this.details = details;
     }
 

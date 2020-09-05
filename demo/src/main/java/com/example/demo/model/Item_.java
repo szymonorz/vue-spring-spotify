@@ -48,7 +48,7 @@ public class Item_ {
     @JsonProperty("external_ids")
     private ExternalIds externalIds;
     @JsonProperty("external_urls")
-    private ExternalUrls____ externalUrls;
+    private ExternalUrls externalUrls;
     @JsonProperty("href")
     private String href;
     @JsonProperty("id")
@@ -141,12 +141,12 @@ public class Item_ {
     }
 
     @JsonProperty("external_urls")
-    public ExternalUrls____ getExternalUrls() {
+    public ExternalUrls getExternalUrls() {
         return externalUrls;
     }
 
     @JsonProperty("external_urls")
-    public void setExternalUrls(ExternalUrls____ externalUrls) {
+    public void setExternalUrls(ExternalUrls externalUrls) {
         this.externalUrls = externalUrls;
     }
 

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Artist_ {
 
     @JsonProperty("external_urls")
-    private ExternalUrls___ externalUrls;
+    private ExternalUrls externalUrls;
     @JsonProperty("href")
     private String href;
     @JsonProperty("id")
@@ -37,12 +37,12 @@ public class Artist_ {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("external_urls")
-    public ExternalUrls___ getExternalUrls() {
+    public ExternalUrls getExternalUrls() {
         return externalUrls;
     }
 
     @JsonProperty("external_urls")
-    public void setExternalUrls(ExternalUrls___ externalUrls) {
+    public void setExternalUrls(ExternalUrls externalUrls) {
         this.externalUrls = externalUrls;
     }
 
