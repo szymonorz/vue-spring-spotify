@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.model.Details;
-import com.example.demo.model.UserToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -43,7 +42,6 @@ public class UserInfo {
     {
         return "<a href='/oauth2/authorization/spotify'>Login</a>";
     }
-
 
 
     @GetMapping("/hello")

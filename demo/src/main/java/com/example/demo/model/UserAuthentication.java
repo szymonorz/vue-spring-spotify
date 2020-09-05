@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class UserAuthentication {
 
     @JsonProperty("authorities")
-    private List<Authority_> authorities = null;
+    private List<Authority> authorities = null;
     @JsonProperty("details")
     private Details_ details;
     @JsonProperty("authenticated")
@@ -38,12 +38,12 @@ public class UserAuthentication {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("authorities")
-    public List<Authority_> getAuthorities() {
+    public List<Authority> getAuthorities() {
         return authorities;
     }
 
     @JsonProperty("authorities")
-    public void setAuthorities(List<Authority_> authorities) {
+    public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
     }
 

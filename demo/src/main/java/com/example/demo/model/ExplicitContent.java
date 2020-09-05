@@ -12,49 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "height",
-    "url",
-    "width"
+    "filter_enabled",
+    "filter_locked"
 })
-public class Image_ {
+public class ExplicitContent {
 
-    @JsonProperty("height")
-    private Integer height;
-    @JsonProperty("url")
-    private String url;
-    @JsonProperty("width")
-    private Integer width;
+    @JsonProperty("filter_enabled")
+    private Boolean filterEnabled;
+    @JsonProperty("filter_locked")
+    private Boolean filterLocked;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("height")
-    public Integer getHeight() {
-        return height;
+    @JsonProperty("filter_enabled")
+    public Boolean getFilterEnabled() {
+        return filterEnabled;
     }
 
-    @JsonProperty("height")
-    public void setHeight(Integer height) {
-        this.height = height;
+    @JsonProperty("filter_enabled")
+    public void setFilterEnabled(Boolean filterEnabled) {
+        this.filterEnabled = filterEnabled;
     }
 
-    @JsonProperty("url")
-    public String getUrl() {
-        return url;
+    @JsonProperty("filter_locked")
+    public Boolean getFilterLocked() {
+        return filterLocked;
     }
 
-    @JsonProperty("url")
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @JsonProperty("width")
-    public Integer getWidth() {
-        return width;
-    }
-
-    @JsonProperty("width")
-    public void setWidth(Integer width) {
-        this.width = width;
+    @JsonProperty("filter_locked")
+    public void setFilterLocked(Boolean filterLocked) {
+        this.filterLocked = filterLocked;
     }
 
     @JsonAnyGetter

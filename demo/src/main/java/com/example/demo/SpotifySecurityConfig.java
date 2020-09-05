@@ -21,8 +21,7 @@ public class SpotifySecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/hello").authenticated()
-        .and().oauth2Login().permitAll();
+        http.authorizeRequests().antMatchers("/hello").authenticated();
 
     }
 

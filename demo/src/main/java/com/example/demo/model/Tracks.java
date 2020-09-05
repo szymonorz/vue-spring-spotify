@@ -26,7 +26,7 @@ public class Tracks {
     @JsonProperty("href")
     private String href;
     @JsonProperty("items")
-    private List<Item_> items = null;
+    private List<Item> items = null;
     @JsonProperty("limit")
     private Integer limit;
     @JsonProperty("next")
@@ -51,12 +51,12 @@ public class Tracks {
     }
 
     @JsonProperty("items")
-    public List<Item_> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
     @JsonProperty("items")
-    public void setItems(List<Item_> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

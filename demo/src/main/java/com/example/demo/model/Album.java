@@ -36,13 +36,13 @@ public class Album {
     @JsonProperty("available_markets")
     private List<String> availableMarkets = null;
     @JsonProperty("external_urls")
-    private ExternalUrls__ externalUrls;
+    private ExternalUrls externalUrls;
     @JsonProperty("href")
     private String href;
     @JsonProperty("id")
     private String id;
     @JsonProperty("images")
-    private List<Image_> images = null;
+    private List<Image> images = null;
     @JsonProperty("name")
     private String name;
     @JsonProperty("release_date")
@@ -89,12 +89,12 @@ public class Album {
     }
 
     @JsonProperty("external_urls")
-    public ExternalUrls__ getExternalUrls() {
+    public ExternalUrls getExternalUrls() {
         return externalUrls;
     }
 
     @JsonProperty("external_urls")
-    public void setExternalUrls(ExternalUrls__ externalUrls) {
+    public void setExternalUrls(ExternalUrls externalUrls) {
         this.externalUrls = externalUrls;
     }
 
@@ -119,12 +119,12 @@ public class Album {
     }
 
     @JsonProperty("images")
-    public List<Image_> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
     @JsonProperty("images")
-    public void setImages(List<Image_> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

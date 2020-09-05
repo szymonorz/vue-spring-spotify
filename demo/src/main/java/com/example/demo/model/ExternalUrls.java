@@ -12,23 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "authority"
+    "spotify"
 })
-public class Authority_ {
+public class ExternalUrls {
 
-    @JsonProperty("authority")
-    private String authority;
+    @JsonProperty("spotify")
+    private String spotify;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("authority")
-    public String getAuthority() {
-        return authority;
+    @JsonProperty("spotify")
+    public String getSpotify() {
+        return spotify;
     }
 
-    @JsonProperty("authority")
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    @JsonProperty("spotify")
+    public void setSpotify(String spotify) {
+        this.spotify = spotify;
     }
 
     @JsonAnyGetter
