@@ -4,6 +4,8 @@ import com.example.demo.model.Album;
 import com.example.demo.model.Artist;
 import com.example.demo.model.Artists;
 import com.example.demo.model.SpotifyAlbum;
+import net.minidev.json.JSONObject;
+import org.codehaus.jackson.JsonNode;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -38,18 +40,31 @@ public class AlbumController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/artist/{id}")
-    public Artist getArtistInfo(@RequestHeader("Authorization") String header, @PathVariable String id)
+    public JSONObject getArtistInfo(@RequestHeader("Authorization") String header, @PathVariable String id)
     {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", header);
         HttpEntity entity = new HttpEntity(httpHeaders);
-        ResponseEntity<Artist> artistResponseEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id,
+        JSONObject result = new JSONObject();
+        ResponseEntity<JSONObject> artistResponseEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id,
                 HttpMethod.GET,
                 entity,
-                Artist.class);
+                JSONObject.class);
+        ResponseEntity<JSONObject> tracksEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/top-tracks?country=SE",
+                HttpMethod.GET,
+                entity,
+                JSONObject.class);
+        ResponseEntity<JSONObject> albumsEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/albums?limit=10",
+            HttpMethod.GET,
+            entity,
+            JSONObject.class);
 
-        return artistResponseEntity.getBody();
+        result.put("Artist", artistResponseEntity.getBody());
+        result.put("Top-Tracks", tracksEntity.getBody());
+        result.put("Albums", albumsEntity.getBody());
+
+        return result;
     }
 
 }

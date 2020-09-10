@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from "vue-router"
+import Vuikit from "vuikit"
 
+import '@vuikit/theme'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+Vue.use(Vuikit)
+
+
+
 
 const router = new VueRouter({
   mode: "history",

@@ -51,8 +51,9 @@ export default {
                 "Authorization": "Bearer " + this.token
                 }
             })
-            .then(resp => console.log(resp.data))
+            .then(resp => this.$emit("show-info", resp.data))
             .catch(err => console.log(err))
+            
         }
     }
 }
