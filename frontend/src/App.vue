@@ -12,17 +12,38 @@
               :style="{'background': 'url('+imgUrl+')'}"
             vk-height-viewport="{min-heigh: 500}">
             </div>
-            <div class="uk-padding-large">
+            <div>
               <h1>{{this.artistData["Artist"]["name"]}}</h1>
-              <p>Lorem ipsum dolor sit amet,
-                 consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                 labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis 
-                 aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat 
-                 nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <h5>Followers: {{this.followers}}</h5>
+            <vk-tabs>
+              <vk-tabs-item title="General">
+                  <div class="genres" style="display: flex">Genres: 
+                      <div v-for="genre in genres" 
+                      :key="genre">
+                        <b><i>{{genre}}</i></b>
+                      </div> 
+                  </div>
+              </vk-tabs-item>
+              <vk-tabs-item title="Top songs">
+                <div class="parent-element" style="height: 300px">
+                  <vue-scroll>
+                    <table class="child-element">
+                      <tr><td>Album photo</td><td>Song name</td><td>Song popularity</td></tr>
+                      <tr v-for="track in topSongs"
+                      :key="track">
+                        <td><img :src="track['album']['images'][0]['url']" height="100px" width="100px"/></td>
+                        <td>{{track['name']}}</td>
+                        <td>{{track['popularity']}}</td>
+                      </tr>
+                    </table>
+                  </vue-scroll>
+                </div>
+              </vk-tabs-item>
+            </vk-tabs>
+
             </div>
           </vk-grid>
-    </vk-modal-full>
+      </vk-modal-full>
     </div>
     </div>
     <div v-else>
@@ -34,8 +55,10 @@
 <script>
 import SearchBar from './components/SearchBar'
 import SpotifyButton from "./components/SpotifyButton"
+import vuescroll from "vuescroll"
 import {ModalFull, ModalFullClose} from "vuikit/lib/modal"
 import {Grid} from "vuikit/lib/grid"
+import {Tabs, TabsItem} from "vuikit/lib/tabs"
 export default {
   name: 'App',
   components: {
@@ -44,6 +67,9 @@ export default {
     VkModalFull: ModalFull,
     VkGrid: Grid,
     VkModalFullClose: ModalFullClose,
+    VkTabs: Tabs,
+    VkTabsItem: TabsItem,
+    VueScroll: vuescroll
   },
   data(){
     return{
@@ -55,7 +81,16 @@ export default {
       show: Boolean,
       artistData: Object,
       loaded: Boolean,
-      imgUrl: String
+      imgUrl: String,
+      genres: Array,
+      followers: String,
+      topSongs: Array,
+      ops: {
+          vuescroll: {},
+          scrollPanel: {},
+          rail: {},
+          bar: {}
+        }
     }
   },
   methods:{
@@ -65,7 +100,15 @@ export default {
         console.log(this.artistData)
         this.loaded = true;
         this.show = true
+        this.loadUserData(this.artistData)
+    },
+    loadUserData: function(data)
+    {
+
         this.imgUrl = "'"+data["Artist"]["images"][0]["url"]+"'"
+        this.genres = data["Artist"]["genres"]
+        this.followers = data["Artist"]["followers"]["total"]
+        this.topSongs = data["Top-Tracks"]["tracks"]
         console.log(this.imgUrl)
     }
   },

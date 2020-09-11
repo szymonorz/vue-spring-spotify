@@ -5,12 +5,6 @@
         <div class="artistInfo">
             <div style="text-align: left; border-bottom: 1px solid black; padding: 5px;">{{artist["name"]}} <br><b> Followers: {{artist["followers"]["total"]}}</b></div>
 
-            <div class="genres">Genres: 
-                <div v-for="genre in genres" 
-                :key="genre">
-                <b><i>{{genre}}</i></b>
-                </div> 
-            </div>
         </div>
     </div>
 </div>
