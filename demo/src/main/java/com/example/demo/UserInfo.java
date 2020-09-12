@@ -2,10 +2,7 @@ package com.example.demo;
 
 import com.example.demo.model.Details;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
@@ -36,6 +33,7 @@ public class UserInfo {
 //        return "login";
 //    }
 
+    private String token;
     @GetMapping("/login")
     @ResponseBody
     public String getLogin()
@@ -47,27 +45,20 @@ public class UserInfo {
     @GetMapping("/hello")
     public String hello(HttpServletResponse response)
     {
-        String token = ((OAuth2AuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getTokenValue();
+        token = ((OAuth2AuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getTokenValue();
         System.out.println(token);
         response.addHeader("Token", token);
 
-        return "redirect://localhost:8080?token="+token;
+        return "redirect://localhost:8080?token=1";
     }
 
-    @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/getToken")
     @ResponseBody
-    public String volvo()
+    public ResponseEntity<String> getToken()
     {
-        return "jebane";
+        System.out.println(this.token);
+        return new ResponseEntity<String>(this.token,HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    @ResponseBody
-    public String kek(HttpServletResponse response)
-    {
-        String token = ((OAuth2AuthenticationDetails)SecurityContextHolder.getContext().getAuthentication().getDetails()).getTokenValue();
-        System.out.println(token);
-        response.addHeader("Token", token);
-        return "kurwa";
-    }
 }

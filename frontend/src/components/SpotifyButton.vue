@@ -5,7 +5,9 @@
 </template>
 <script>
 export default {
-    props:["msg"]    
+    props:["msg"],
+    methods:{
+    }    
 }
 </script>
 <style scoped>

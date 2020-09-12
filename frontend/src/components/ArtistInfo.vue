@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import {Grid} from "vuikit/lib/grid"
 import {Tabs, TabsItem} from "vuikit/lib/tabs"
 import vuescroll from "vuescroll"
@@ -84,11 +83,7 @@ export default {
         },
         getArtistInfo: function(id)
         {
-            axios.get("http://192.168.0.30:8081/artist/"+id,  {
-                    headers:{
-                    "Authorization": "Bearer " + this.token
-                    }
-                })
+            this.$http.get("http://192.168.0.30:8081/artist/"+id)
                 .then(resp => this.loadArtistData(resp.data))
                 .catch(err => console.log(err))
             console.log("kek")

@@ -1,7 +1,7 @@
 <template>
 <div class="artistComp">
     <div class="artist-block">
-        <img @click="$emit('get-info', artistId)" height="100px" width="100px" :src="artist['images'][0]['url']"/>
+        <img @click="$emit('get-info', artistId)" height="100px" width="100px" :src="artist['images'][2]['url']"/>
         <div class="artistInfo">
             <div style="text-align: left; border-bottom: 1px solid black; padding: 5px;">{{artist["name"]}} <br><b> Followers: {{artist["followers"]["total"]}}</b></div>
 
@@ -18,10 +18,8 @@ export default {
             artistId: String
         }
     },
-    methods:{
-        
-    },
     mounted(){
+        console.log(this.artist)
         this.genres = this.artist["genres"]
         this.artistId = this.artist["id"]
         console.log(this.artistId)

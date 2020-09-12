@@ -13,7 +13,6 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
 import ArtistComponent from "./ArtistComponent"
 export default {
     components:{
@@ -30,13 +29,10 @@ export default {
         onSubmit: function(e)
         {
             e.preventDefault();
-            axios.request({
+            this.$http.request({
                 url: "/search/"+this.artistName,
                 method: 'get',
-                baseURL: "http://192.168.0.30:8081",
-                headers:{
-                    "Authorization": "Bearer "+this.token
-                }
+                baseURL: "http://192.168.0.30:8081"
             })
             .then(response => this.result = response.data["items"])
             .catch(err => console.log(err))
