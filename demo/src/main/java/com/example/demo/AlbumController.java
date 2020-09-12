@@ -6,11 +6,9 @@ import com.example.demo.model.Artists;
 import com.example.demo.model.SpotifyAlbum;
 import net.minidev.json.JSONObject;
 import org.codehaus.jackson.JsonNode;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class AlbumController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/search/{name}")
-    public Artists getArtists(@RequestHeader("Authorization") String token, @PathVariable String name)
+    public ResponseEntity<Artists> getArtists(@RequestHeader("Authorization") String token, @PathVariable String name)
     {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -29,42 +27,60 @@ public class AlbumController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", token);
         HttpEntity entity = new HttpEntity(headers);
-        ResponseEntity<SpotifyAlbum> albumResponseEntity = restTemplate.exchange( 	"https://api.spotify.com/v1/search?q="+name+"&type=artist,track&limit=5",
+        ResponseEntity<SpotifyAlbum> albumResponseEntity = null;
+        try{
+            albumResponseEntity = restTemplate.exchange( 	"https://api.spotify.com/v1/search?q="+name+"&type=artist,track&limit=5",
                 HttpMethod.GET,
                 entity,
                 SpotifyAlbum.class);
-        return  albumResponseEntity.getBody().getArtists();
+        }catch (HttpClientErrorException e)
+        {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        return  ResponseEntity.
+                status(HttpStatus.OK).
+                body(albumResponseEntity.getBody().getArtists());
 
     }
 
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/artist/{id}")
-    public JSONObject getArtistInfo(@RequestHeader("Authorization") String header, @PathVariable String id)
+    public ResponseEntity<JSONObject> getArtistInfo(@RequestHeader("Authorization") String header, @PathVariable String id)
     {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", header);
         HttpEntity entity = new HttpEntity(httpHeaders);
+        ResponseEntity<JSONObject> artistResponseEntity = null;
+        ResponseEntity<JSONObject> tracksEntity = null;
+        ResponseEntity<JSONObject> albumsEntity = null;
         JSONObject result = new JSONObject();
-        ResponseEntity<JSONObject> artistResponseEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id,
+        try{
+            artistResponseEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id,
                 HttpMethod.GET,
                 entity,
                 JSONObject.class);
-        ResponseEntity<JSONObject> tracksEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/top-tracks?country=SE",
+            tracksEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/top-tracks?country=SE",
                 HttpMethod.GET,
                 entity,
                 JSONObject.class);
-        ResponseEntity<JSONObject> albumsEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/albums?limit=10",
+         albumsEntity = restTemplate.exchange("https://api.spotify.com/v1/artists/"+id+"/albums?limit=10",
             HttpMethod.GET,
             entity,
             JSONObject.class);
-
+        }catch (HttpClientErrorException unauthorized)
+        {
+            JSONObject error = new JSONObject();
+            error.put("stats",401);
+            error.put("message", "expired");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+        }
         result.put("Artist", artistResponseEntity.getBody());
         result.put("Top-Tracks", tracksEntity.getBody());
         result.put("Albums", albumsEntity.getBody());
 
-        return result;
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

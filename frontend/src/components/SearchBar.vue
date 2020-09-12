@@ -18,12 +18,14 @@ export default {
     components:{
         ArtistComponent
     },
-    props: ["token"],
     data(){
         return{
             artistName: '',
             result: []
         }
+    },
+    mounted(){
+        console.log(this.token)
     },
     methods:{
         onSubmit: function(e)
@@ -35,7 +37,7 @@ export default {
                 baseURL: "http://192.168.0.30:8081"
             })
             .then(response => this.result = response.data["items"])
-            .catch(err => console.log(err))
+            .catch(err => this.$emit("handle-error",err.response.status))
             
         }
         

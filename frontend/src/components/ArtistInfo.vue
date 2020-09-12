@@ -72,13 +72,11 @@ export default {
     methods:{
         loadArtistData: function(data)
         {
-            console.log(data)
             this.artistData = data
             this.imgUrl = "'"+data["Artist"]["images"][0]["url"]+"'"
             this.genres = data["Artist"]["genres"]
             this.followers = data["Artist"]["followers"]["total"]
             this.topSongs = data["Top-Tracks"]["tracks"]
-            console.log(this.artistData["Artist"]["name"])
             this.loaded = true
         },
         getArtistInfo: function(id)
@@ -86,14 +84,11 @@ export default {
             this.$http.get("http://192.168.0.30:8081/artist/"+id)
                 .then(resp => this.loadArtistData(resp.data))
                 .catch(err => console.log(err))
-            console.log("kek")
         }
     },
     mounted(){
-        console.log(this.$route.params.id)
         this.token = this.$route.query.token
         this.loaded = false
-        console.log(this.loaded)
         this.getArtistInfo(this.$route.params.id)
     }
     
