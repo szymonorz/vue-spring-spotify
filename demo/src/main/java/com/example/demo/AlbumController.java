@@ -1,17 +1,12 @@
 package com.example.demo;
 
-import com.example.demo.model.Album;
-import com.example.demo.model.Artist;
 import com.example.demo.model.Artists;
 import com.example.demo.model.SpotifyAlbum;
 import net.minidev.json.JSONObject;
-import org.codehaus.jackson.JsonNode;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 
 @RestController
