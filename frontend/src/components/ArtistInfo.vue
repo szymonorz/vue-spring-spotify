@@ -3,8 +3,9 @@
         <vk-grid collapse class="uk-child-width-1-2@s uk-flex-middle" style="height: 500px">
                 <div class="uk-background-cover" 
                 id="image"
-                :style="{'background': 'url('+imgUrl+')'}"
-                vk-height-viewport="{min-heigh: 500}">
+                :style="{'background': 'url('+imgUrl+') no-repeat'}"
+                vk-height-viewport="{min-heigh: 500}"
+                >
                 </div>
                 <div>
                     <h1>{{this.artistData["Artist"]["name"]}}</h1>
