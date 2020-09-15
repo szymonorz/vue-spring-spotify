@@ -6,7 +6,7 @@
         </form>
         <ArtistComponent
             v-for="artist in result"
-            :key="artist"
+            :key="artist['name']"
             :artist="artist"
             v-on:get-info="$emit('get-info', $event)"
              />
@@ -23,9 +23,6 @@ export default {
             artistName: '',
             result: []
         }
-    },
-    mounted(){
-        console.log(this.token)
     },
     methods:{
         onSubmit: function(e)

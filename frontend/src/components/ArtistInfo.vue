@@ -8,7 +8,7 @@
                 >
                 </div>
                 <div>
-                    <h1>{{this.artistData["Artist"]["name"]}}</h1>
+                    <h1>{{this.artistName}}</h1>
                     <h5>Followers: {{this.followers}}</h5>
                 <vk-tabs>
                     <vk-tabs-item title="General">
@@ -25,7 +25,7 @@
                             <table class="child-element">
                             <tr><td>Album photo</td><td>Song name</td><td>Song popularity</td></tr>
                             <tr v-for="track in topSongs"
-                            :key="track">
+                            :key="track['name']">
                                 <td><img :src="track['album']['images'][0]['url']" height="100px" width="100px"/></td>
                                 <td>{{track['name']}}</td>
                                 <td>{{track['popularity']}}</td>
@@ -56,6 +56,7 @@ export default {
     data(){
         return{
             artistData: Object,
+            artistName: String,
             imgUrl: String,
             token: String,
             genres: Array,
@@ -75,6 +76,7 @@ export default {
         {
             this.artistData = data
             this.imgUrl = "'"+data["Artist"]["images"][0]["url"]+"'"
+            this.artistName = data["Artist"]["name"]
             this.genres = data["Artist"]["genres"]
             this.followers = data["Artist"]["followers"]["total"]
             this.topSongs = data["Top-Tracks"]["tracks"]

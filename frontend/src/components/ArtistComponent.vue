@@ -19,10 +19,8 @@ export default {
         }
     },
     mounted(){
-        console.log(this.artist)
         this.genres = this.artist["genres"]
         this.artistId = this.artist["id"]
-        console.log(this.artistId)
     }
 }
 </script>
